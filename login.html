@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> Login Details</h1>
+    <input type="text" id="usr" onkeyup="f()" placeholder="Username">
+    <p id="usrmsg"></p>
+    <input type="password" onkeyup="f1()" id="pwd" placeholder="Password">
+    <p id="pwdmsg"></p>
+    <button onclick="cancel()">Cancel</button>
+    <button onclick="login()">Login</button>
+</body>
+<script type="text/javascript">
+    function f(){
+       var username=document.getElementById("usr").value;
+       document.getElementById("usr").value=username.toUpperCase();
+       var usrmsg=document.getElementById("usrmsg");
+       
+       if(username.length<5){
+        usrmsg.innerHTML=" Name Is Short <br>".fontcolor('red').bold() ;
+       }
+       else{
+        usrmsg.innerHTML=" Name Verified.. <br>".fontcolor('Green').bold() ;
+       }       
+    }
+    function f1(){
+        var password =document.getElementById("pwd").value;
+       var pwdmsg=document.getElementById("pwdmsg");
+        if(`${password}`.length<8){
+        pwdmsg.innerHTML=" Password is weak <br>";
+        pwdmsg.style.color="Red";
+        pwdmsg.style.fontStyle="italic";
+       }
+       else{  
+        pwdmsg.innerHTML=" Password is Strong <br>".fontcolor('Green');
+       }
+
+    }
+    function login(){
+        alert("Login Succesfully");
+    }
+   
+</script>
+</html>
