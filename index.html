@@ -4,46 +4,87 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
-<body>
-    <h1> Login Details</h1>
-    <input type="text" id="usr" onkeyup="f()" placeholder="Username">
-    <p id="usrmsg"></p>
-    <input type="password" onkeyup="f1()" id="pwd" placeholder="Password">
-    <p id="pwdmsg"></p>
-    <button onclick="cancel()">Cancel</button>
-    <button onclick="login()">Login</button>
-</body>
-<script type="text/javascript">
-    function f(){
-       var username=document.getElementById("usr").value;
-       document.getElementById("usr").value=username.toUpperCase();
-       var usrmsg=document.getElementById("usrmsg");
-       
-       if(username.length<5){
-        usrmsg.innerHTML=" Name Is Short <br>".fontcolor('red').bold() ;
-       }
-       else{
-        usrmsg.innerHTML=" Name Verified.. <br>".fontcolor('Green').bold() ;
-       }       
+<style>
+    .loginpage{
+        text-align: center;
+        width: 400px;
+        height: 51vh;
+        border: 2px solid black;
+        position: relative;
+        left: 67vh;
+        top: 13vh;
+        background-color: aliceblue;
+    border-radius: 17px;
     }
-    function f1(){
-        var password =document.getElementById("pwd").value;
-       var pwdmsg=document.getElementById("pwdmsg");
-        if(`${password}`.length<8){
-        pwdmsg.innerHTML=" Password is weak <br>";
-        pwdmsg.style.color="Red";
-        pwdmsg.style.fontStyle="italic";
-       }
-       else{  
-        pwdmsg.innerHTML=" Password is Strong <br>".fontcolor('Green');
-       }
+    #toggleVisibility {
+    background-image: url("eye.png");
+    background-size: cover;
+    width: 32px;
+    height: 24px;
+    border: none;
+}
 
-    }
+</style>
+<body>
+    <div class="loginpage">
+        <h1>User Login</h1> <br>
+        <input type="username" onkeyup="cl()" onchange="c()" placeholder="Username or Mobile No" id="usr"> 
+        <br>
+        <br>
+        <input type="password"  onchange="lg()" placeholder="Password" id="pwd" style="position: relative; left: 18px;">
+
+        <button id="toggleVisibility" style="position: relative; left: 21px;"> </button><br> <br>
+        <button class="btn btn-primary" onclick="art()">Cancel</button> 
+        <button class="btn btn-primary" id="bt" onclick="login()">Login</button>
+         <h5 id="msg" style="color: red;">  </h5>
+         <p><a href="#">Forgot Details</a> <a href="#">Create Account</a></p>
+    </div>
+</body>
+<script>
+    const pwdInput = document.querySelector("#pwd");
+const toggleVisibilityBtn = document.querySelector("#toggleVisibility");
+
+toggleVisibilityBtn.addEventListener("click", function() {
+  if (pwdInput.type === "password") {
+    pwdInput.type = "text";
+  } else {
+    pwdInput.type = "password";
+  }
+});
+
+
     function login(){
-        alert("Login Succesfully");
+    var usr=document.getElementById("usr").value;
+    var pwd=document.getElementById("pwd").value;
+
+    fetch("login.json")
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(user){
+        for(var us of user){
+            if((us.username==usr || us.mobile==usr )&& us.password==pwd){
+                document.getElementById("msg").innerText="Login Succesfully";
+                window.location.href = "https://saiyenugwar.github.io/MARS-IMAGE/";
+            }
+            else if(us.username==usr || us.mobile==usr){
+              document.getElementById("msg").innerText="Entered wrong Password";
+            }
+            else if(us.password==pwd){
+              document.getElementById("msg").innerText="Entered wrong Username";
+            }
+            else{
+                document.getElementById("msg").innerText="Entered wrong Username & Password";
+            }
+        }
+    })
     }
-   
+
+    
+
+
 </script>
 </html>
